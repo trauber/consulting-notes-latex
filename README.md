@@ -27,6 +27,6 @@ With Heinrich's system I experience much less friction about where to put things
 
 ## TODO
 
--[x] Add logo watermark behind dot graph.
+- [x] Add logo watermark behind dot graph.
 
 
