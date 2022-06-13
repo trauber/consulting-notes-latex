@@ -1,1 +1,162 @@
-% First commit.
+\documentclass[12pt]{article} % 12pt since I'm a boomer
+\usepackage[margin=.25in]{geometry} % article default uses too much real estate
+\usepackage{setspace} %doublespacing
+\usepackage[normalem]{ulem} % dotted lines
+\usepackage{multicol}
+\usepackage{tikz} % dotted graph paper
+\usepackage{pifont} % checkbox dingbat
+
+%=======================================%
+% Watermark with transparency for logo. %
+%=======================================%
+
+\usepackage[printwatermark]{xwatermark}
+\newsavebox\mybox
+\savebox\mybox{\tikz[opacity=0.09]\node{\includegraphics{esllc-logo-6.png}};}
+\newwatermark*[
+  allpages,
+  %angle=45,
+  scale=3.5,
+  xpos=0,
+  ypos=35
+]{\usebox\mybox}
+
+
+%==================================================================%
+% Set the font. https://tug.org/FontCatalogue/ has what's needed. %
+%==================================================================%
+
+\usepackage[OT1]{fontenc}
+\renewcommand*\familydefault{\sfdefault} %% Only if the base font of the document is to be sans serif
+
+%========================================================================%
+% Two commands, each take a number of times to repeat.  Bullet line for  %
+% optimization notes.  Task line for todos. Both lines are filled with a %
+% light gray dotted underline.                                           %
+%========================================================================%
+
+\newcommand{\bulletline}[1]{
+    \newcount\foo
+    \foo=#1
+    \loop
+    \par$\bullet$ \color{lightgray} \dotuline{\hfill} \color {black}
+    \advance \foo -1
+    \ifnum \foo>0
+    \repeat
+}
+
+\newcommand{\taskline}[1]{
+    \newcount\foo
+    \foo=#1
+    \loop
+    \par\ding{111} \color{lightgray} \dotuline{\hfill} \color{black}
+    \advance \foo -1
+    \ifnum \foo>0
+    \repeat
+}
+
+\begin{document}
+\normalfont
+\doublespacing
+
+
+%========================================================================%
+% The top of the doc which has areas for date, client & topic, a seating %
+% diagram, and participant list.                                         %
+%========================================================================%
+
+\begin{multicols}{2}
+    \par{DATE: \color{lightgray} \dotuline{\hfill} \color{black}}
+    \par{CLIENT \& TOPIC: \color{lightgray} \dotuline{\hfill}}
+    \color{lightgray}
+    \par\dotuline{\hfill}
+    \color{black}
+    \par{PARTICIPANTS: \color{lightgray} \dotuline{\hfill}}
+    \color{lightgray}
+    \par\dotuline{\hfill}
+    \par\dotuline{\hfill}
+    \color{black}
+    \columnbreak
+    \par{SEATING DIAGRAM:}
+\end{multicols}
+\color{lightgray}
+\vspace{2em}
+
+
+
+%=========================================================================%
+% This is the area for general notes, which I fill with a dot graph with  %
+% tikz package.  If you change document paper size or font you'll want to %
+% play around with this.  The x loop controls the number of columns and   %
+% the y loop controls the number of rows.  The scale zooms the graphic.   %
+% The circle controls the size of the dot.                                %
+%=========================================================================%
+
+
+\begin{tikzpicture}[scale=.5]
+    \foreach \x in {0,...,38}
+    \foreach \y in {0,...,15}
+    {
+        \fill (\x,\y) circle (0.03cm);
+    }       
+\end{tikzpicture}
+
+\vspace{2em}
+
+
+
+%===============================================%
+% The optimization idea area has a bullet list. %
+%===============================================%
+
+\color{black}
+\par{OPTIMIZATION IDEAS:}
+\bulletline{5}
+\vspace{2em}
+
+%============================================================================%
+% The todo area is split in two columns, one with todos for me (or the firm) %
+% and one with todos for the client.                                         %
+%============================================================================%
+
+
+\begin{multicols}{2}
+    \par{TODOS ME:  }
+    \taskline{5}
+    \columnbreak  % force a column break.
+    \par{TODOS CLIENT:}
+    \taskline{5}
+\end{multicols}
+
+\newpage
+
+
+\normalfont
+\doublespacing
+
+\vspace{2em}
+
+\color{lightgray}
+
+\begin{tikzpicture}[scale=.5]
+\foreach \x in {0,...,38}
+\foreach \y in {0,...,30}
+{
+\fill (\x,\y) circle (0.03cm);
+}       
+\end{tikzpicture}
+
+\vspace{2em}
+\color{black}
+
+\begin{multicols}{2}
+    \par{TODOS ME:  }
+    \taskline{7}
+    \columnbreak
+    \par{TODOS CLIENT:}
+    \taskline{7}
+\end{multicols}
+
+
+
+\end{document}
